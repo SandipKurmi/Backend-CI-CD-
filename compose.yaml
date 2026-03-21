@@ -1,9 +1,16 @@
 services:
   blog-db:
-    image: "mysql"
+    image: mysql
     healthcheck:
       test:
-        ["CMD", "mysqladmin", "ping", "-h", "localhost", "-u", "root", "-proot"]
+        - CMD
+        - mysqladmin
+        - ping
+        - '-h'
+        - localhost
+        - '-u'
+        - root
+        - '-proot'
       interval: 10s
       timeout: 5s
       retries: 3
@@ -14,31 +21,28 @@ services:
     volumes:
       - blog-db-vol:/var/lib/mysql
     ports:
-      - "3307:3306"
+      - '3307:3306'
     networks:
       - blog-app-net
-
   blog-server:
-    image: sandipkurmi/blog-app:v1
+    image: sandipkurmi/blog-app:build-6
     depends_on:
       blog-db:
         condition: service_healthy
     healthcheck:
       test:
-        [
-          "CMD",
-          "wget",
-          "--no-verbose",
-          "--tries=1",
-          "--spider",
-          "http://localhost:5501/health",
-        ]
+        - CMD
+        - wget
+        - '--no-verbose'
+        - '--tries=1'
+        - '--spider'
+        - http://localhost:5501/health
       interval: 10s
       timeout: 5s
       retries: 3
       start_period: 30s
     ports:
-      - "5501:5501"
+      - '5501:5501'
     environment:
       - PORT=5501
       - DB_HOST=blog-db
@@ -48,7 +52,6 @@ services:
       - NODE_HOST=${HOSTNAME:-production}
     networks:
       - blog-app-net
-
 volumes:
   blog-db-vol: null
 networks:
