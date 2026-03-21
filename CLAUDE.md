@@ -46,5 +46,6 @@ Tests live in `tests/` and use Jest + Supertest. Test files follow the `*.spec.t
 ## Environment
 
 Copy `.env.example` to `.env` and set:
+
 - `PORT` — HTTP port
 - `NODE_ENV` — e.g., `development`, `test`, `production`

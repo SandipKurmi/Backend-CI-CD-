@@ -9,7 +9,7 @@ describe('App', () => {
     });
 
     it('Calculate discount', () => {
-        expect(calculateDiscount(100, 10)).toBe(91);
+        expect(calculateDiscount(100, 10)).toBe(90);
     });
 
     it('Should Return 200 Status', async () => {
