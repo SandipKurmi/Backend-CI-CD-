@@ -11,23 +11,14 @@ services:
                 parallelism: 1
                 order: start-first
         healthcheck:
-            test:
-                [
-                    'CMD',
-                    'mysqladmin',
-                    'ping',
-                    '-h',
-                    'localhost',
-                    '-u',
-                    'root',
-                    '-p${MYSQL_ROOT_PASSWORD}',
-                ]
+            test: ['CMD', 'mysqladmin', 'ping', '-h', 'localhost', '-u', 'root', '-proot']
             interval: 10s
             timeout: 5s
             retries: 3
-            start_period: 10s
+            start_period: 30s
         environment:
             - MYSQL_ROOT_PASSWORD=root
+            - MYSQL_DATABASE=blogdb
         volumes:
             - blog-db-vol:/var/lib/mysql
         ports:
@@ -47,27 +38,20 @@ services:
                 parallelism: 1
                 order: start-first
         healthcheck:
-            test:
-                [
-                    'CMD',
-                    'wget',
-                    '--no-verbose',
-                    '--tries=1',
-                    '--spider',
-                    'http://localhost:3000/health',
-                ]
+            test: ['CMD', 'wget', '--no-verbose', '--tries=1', '--spider', 'http://localhost:5501/health']
             interval: 10s
             timeout: 5s
             retries: 3
-            start_period: 10s
+            start_period: 30s
         ports:
-            - '3001:3000'
+            - '5501:5501'
         environment:
+            - PORT=5501
             - DB_HOST=blog-db
             - DB_USER=root
             - DB_PASSWORD=root
             - DB_NAME=blogdb
-            - NODE_HOST="{{.Node.Hostname}}"
+            - NODE_HOST={{.Node.Hostname}}
         networks:
             - blog-app-net
 
