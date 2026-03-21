@@ -4,6 +4,7 @@ import {
     calculateDiscount,
     calculatePercentage,
     calculateTax,
+    generateRandomString,
 } from '../src/util';
 import app from '../src/app';
 import request from 'supertest';
@@ -22,6 +23,10 @@ describe('App', () => {
 
     it('Calculate tax', () => {
         expect(calculateTax(100, 10)).toBe(110);
+    });
+
+    it('Generate random string', () => {
+        expect(generateRandomString(10)).toHaveLength(10);
     });
 
     it('Should Return 200 Status', async () => {
