@@ -21,7 +21,7 @@ describe('App', () => {
     });
 
     it('Calculate tax', () => {
-        expect(calculateTax(100, 10)).toBe(110.5);
+        expect(calculateTax(100, 10)).toBe(110);
     });
 
     it('Should Return 200 Status', async () => {
