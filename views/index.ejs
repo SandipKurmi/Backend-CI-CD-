@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Blog Posts</title>
+        <style>
+            body { font-family: Arial, sans-serif; max-width: 800px; margin: 40px auto; padding: 0 20px; }
+            .meta { color: #888; font-size: 0.85rem; margin-bottom: 24px; }
+            .post { border: 1px solid #ddd; border-radius: 6px; padding: 16px; margin-bottom: 16px; }
+            .post h2 { margin: 0 0 8px; }
+        </style>
+    </head>
+    <body>
+        <h1>Blog Posts</h1>
+        <p class="meta">Version: <%= version %> | Host: <%= host %></p>
+
+        <% if (blogs.length === 0) { %>
+            <p>No posts found.</p>
+        <% } else { %>
+            <% blogs.forEach(function(blog) { %>
+                <div class="post">
+                    <h2><%= blog.title %></h2>
+                    <p><%= blog.description %></p>
+                </div>
+            <% }) %>
+        <% } %>
+    </body>
+</html>
