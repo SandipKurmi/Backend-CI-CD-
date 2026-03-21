@@ -6,5 +6,7 @@ coverage
 # Ignore all HTML files:
 **/*.html
 
-# Ignore CI/CD configuration
+# Ignore CI/CD and Docker configuration
 .github/
+compose.yaml
+docker-compose*.yml
