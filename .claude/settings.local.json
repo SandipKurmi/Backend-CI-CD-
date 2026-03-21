@@ -2,7 +2,8 @@
     "permissions": {
         "allow": [
             "Bash(find /Users/sandip/Developer/node-js/ci-cd/mernstack-c-node-app-template -not -path */node_modules/* -type f)",
-            "Bash(git:*)"
+            "Bash(git:*)",
+            "Bash(/Users/sandip/Developer/node-js/ci-cd/mernstack-c-node-app-template/.env.example:*)"
         ]
     }
 }

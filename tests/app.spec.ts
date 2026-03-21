@@ -25,7 +25,7 @@ describe('App', () => {
     });
 
     it('Should Return 200 Status', async () => {
-        const response = await request(app).get('/').send();
+        const response = await request(app).get('/health').send();
         expect(response.statusCode).toBe(200);
     });
 });

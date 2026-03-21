@@ -137,3 +137,6 @@ dist
 
 # Ignore .env file
 .env
+
+# Local Docker override (contains dev credentials and local build config)
+docker-compose.override.yml
