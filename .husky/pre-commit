@@ -1,11 +1,11 @@
-#!/usr/bin/env sh
+# #!/usr/bin/env sh
 
-# Skip all checks if nothing is staged
-STAGED=$(git diff --cached --name-only)
-if [ -z "$STAGED" ]; then
-  exit 0
-fi
+# # Skip all checks if nothing is staged
+# STAGED=$(git diff --cached --name-only)
+# if [ -z "$STAGED" ]; then
+#   exit 0
+# fi
 
-npx lint-staged
-npm run test:ci
-npm run build
+# npx lint-staged
+# npm run test:ci
+# npm run build

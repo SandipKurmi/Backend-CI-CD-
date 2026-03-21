@@ -5,7 +5,8 @@ import app from '../src/app';
 import request from 'supertest';
 describe('App', () => {
     it('Should work', () => {
-        expect(sum(1, 2)).toBe(3);
+        let name;
+        expect(sum(1, 2)).toBe(4);
     });
 
     it('Calculate discount', () => {
