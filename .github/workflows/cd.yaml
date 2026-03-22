@@ -14,7 +14,7 @@ jobs:
     env:
       FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: true
       IMAGE_NAME: sandipkurmi/blog-app
-      IMAGE_TAG: build-${{ github.run_number }}
+      IMAGE_TAG: ${{ github.sha }}
 
     steps:
       - name: Checkout repository
@@ -56,7 +56,7 @@ jobs:
     needs: [build-and-push]
     env:
       IMAGE_NAME: sandipkurmi/blog-app
-      IMAGE_TAG: build-${{ github.run_number }}
+      IMAGE_TAG: ${{ github.sha }}
 
     steps:
       - name: SSH to server and deploy
