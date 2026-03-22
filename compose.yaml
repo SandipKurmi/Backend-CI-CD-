@@ -6,11 +6,11 @@ services:
         - CMD
         - mysqladmin
         - ping
-        - "-h"
+        - '-h'
         - localhost
-        - "-u"
+        - '-u'
         - root
-        - "-proot"
+        - '-proot'
       interval: 10s
       timeout: 5s
       retries: 3
@@ -21,11 +21,11 @@ services:
     volumes:
       - blog-db-vol:/var/lib/mysql
     ports:
-      - "3307:3306"
+      - '3307:3306'
     networks:
       - blog-app-net
   blog-server:
-    image: sandipkurmi/blog-app:build-9
+    image: sandipkurmi/blog-app:ee227e62923880c45ef367d3505e5aa3d7e61d77
     depends_on:
       blog-db:
         condition: service_healthy
@@ -33,16 +33,16 @@ services:
       test:
         - CMD
         - wget
-        - "--no-verbose"
-        - "--tries=1"
-        - "--spider"
+        - '--no-verbose'
+        - '--tries=1'
+        - '--spider'
         - http://localhost:5501/health
       interval: 10s
       timeout: 5s
       retries: 3
       start_period: 30s
     ports:
-      - "5501:5501"
+      - '5501:5501'
     environment:
       - PORT=5501
       - DB_HOST=blog-db
@@ -52,7 +52,6 @@ services:
       - NODE_HOST=${HOSTNAME:-production}
     networks:
       - blog-app-net
-
   mysql-cron-backup:
     image: fradelg/mysql-cron-backup
     depends_on:
@@ -72,7 +71,6 @@ services:
       - EXIT_BACKUP=1
     networks:
       - blog-app-net
-
 volumes:
   blog-db-vol: null
   blog-db-backup-vol: null
