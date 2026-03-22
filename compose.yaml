@@ -25,7 +25,7 @@ services:
     networks:
       - blog-app-net
   blog-server:
-    image: sandipkurmi/blog-app:build-9
+    image: sandipkurmi/blog-app:06f7d8311605b7008b5963828095f68e52cdefff
     depends_on:
       blog-db:
         condition: service_healthy
