@@ -6,11 +6,11 @@ services:
         - CMD
         - mysqladmin
         - ping
-        - '-h'
+        - "-h"
         - localhost
-        - '-u'
+        - "-u"
         - root
-        - '-proot'
+        - "-proot"
       interval: 10s
       timeout: 5s
       retries: 3
@@ -21,11 +21,11 @@ services:
     volumes:
       - blog-db-vol:/var/lib/mysql
     ports:
-      - '3307:3306'
+      - "3307:3306"
     networks:
       - blog-app-net
   blog-server:
-    image: sandipkurmi/blog-app:06f7d8311605b7008b5963828095f68e52cdefff
+    image: sandipkurmi/blog-app:build-9
     depends_on:
       blog-db:
         condition: service_healthy
@@ -33,16 +33,16 @@ services:
       test:
         - CMD
         - wget
-        - '--no-verbose'
-        - '--tries=1'
-        - '--spider'
+        - "--no-verbose"
+        - "--tries=1"
+        - "--spider"
         - http://localhost:5501/health
       interval: 10s
       timeout: 5s
       retries: 3
       start_period: 30s
     ports:
-      - '5501:5501'
+      - "5501:5501"
     environment:
       - PORT=5501
       - DB_HOST=blog-db
@@ -52,7 +52,29 @@ services:
       - NODE_HOST=${HOSTNAME:-production}
     networks:
       - blog-app-net
+
+  mysql-cron-backup:
+    image: fradelg/mysql-cron-backup
+    depends_on:
+      blog-db:
+        condition: service_healthy
+    volumes:
+      - blog-db-backup-vol:/backup
+    restart: unless-stopped
+    environment:
+      - MYSQL_HOST=blog-db
+      - MYSQL_USER=root
+      - MYSQL_PASS=root
+      - MAX_BACKUPS=15
+      - INIT_BACKUP=0
+      - CRON_TIME=* * * * *
+      - GZIP_LEVEL=9
+      - EXIT_BACKUP=1
+    networks:
+      - blog-app-net
+
 volumes:
   blog-db-vol: null
+  blog-db-backup-vol: null
 networks:
   blog-app-net: null
